@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Bookings.Models.Booking>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Rezerwacje w systemie</h2>
+
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Nick)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayName("Data")
+        </th>
+        <th>
+            @Html.DisplayName("Godzina od")
+        </th>
+        <th>
+            @Html.DisplayName("Godzina do")
+        </th>
+        <th>
+            @Html.DisplayName("Uczestnicy")
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Nick)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @{
+        var data = item.DateOf.ToString().Substring(0, 10);
+        Output.WriteLine(data);
+                }
+            </td>
+            <td>
+                @{
+        var godzina = item.DateOf.ToString().Substring(11, 5);
+        Output.WriteLine(godzina);
+                }
+            </td>
+            <td>
+                @{
+        var godzina2 = item.DateTo.ToString().Substring(11, 5);
+        Output.WriteLine(godzina2);
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Uczestnicy", "Index", "Users", new { id = item.BookingId }, null)
+            </td>
+        </tr>
+    }
+</table>
+
+<style>
+    table tr:nth-child(2) {
+        background: #101010;
+        color: #999999;
+    }
+
+        table tr:nth-child(2):hover {
+            color: #ffffff;
+        }
+</style>

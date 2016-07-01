@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Bookings.Models.User>
+
+@{
+    ViewBag.Title = "CheckUsers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Wybierz Uczesników</h2>
+<br />
+
+@using (Html.BeginForm("CheckUsers", "Users", FormMethod.Post))
+{
+    <div class="text-danger"><h3>@TempData["error"]</h3><br /></div>
+    <div class="container marketing">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4">
+                    @if (item.ImageLink == null)
+                    {
+                        <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                    }
+                    else
+                    {
+                        <img class="img-circle" src="@Url.Content(@item.ImageLink)" alt="Generic placeholder image" width="140" height="140">
+                    }
+                    <h4>
+                        @Html.DisplayFor(modelItem => item.Name) <text> </text>
+                        @Html.DisplayFor(modelItem => item.Surname)
+                        @{
+                    int temp = 0;
+                    if (TempData["Members"] != null)
+                    {
+
+                        string member = TempData["Members"].ToString();
+                        string[] members = member.Split(',');
+                        for (int i = 0; i < members.Count() - 1; i++)
+                        {
+                            if (Convert.ToInt16(members[i]) == item.UserId)
+                            {
+                                <label><input type="checkbox" name="deletedItems" class="largerCheckbox" value="@item.UserId" checked></label>
+
+                                temp++;
+                            }
+                        }
+
+                    }
+                    if (temp == 0)
+                    {
+
+                        <label><input type="checkbox" class="largerCheckbox" name="deletedItems" value="@item.UserId"></label>
+
+                    }
+                        }
+                    </h4>
+                    <p>Nick: @Html.DisplayFor(modelItem => item.Nick) </p>
+                    <p>Email: @Html.DisplayFor(modelItem => item.Email) </p>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-0 col-md-6">
+            <input type="submit" value="Zatwierdź" class="btn btn-ok" />
+        </div>
+    </div>
+}

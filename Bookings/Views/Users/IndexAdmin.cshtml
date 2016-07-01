@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Bookings.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Użytkownicy</h2>
+<br />
+
+<div class="text-danger" style="text-align:center;color:#999999">
+    <h1>@TempData["ok"]</h1>
+</div>
+<br />
+<div class="container marketing">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4">
+                @if (item.ImageLink == null)
+                {
+                    <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                }
+                else
+                {
+                    <img class="img-circle" src="@Url.Content(@item.ImageLink)" alt="Generic placeholder image" width="140" height="140">
+                }
+                <h4>
+                    @Html.DisplayFor(modelItem => item.Name) <text> </text>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </h4>
+                <p>Nick: @Html.DisplayFor(modelItem => item.Nick) </p>
+                <p>Email: @Html.DisplayFor(modelItem => item.Email) </p>
+                @if (item.Active == false)
+                {
+                    <p>@Html.ActionLink("Aktywuj", "Active", new { id = item.UserId }, new { @style = "color:darkmagenta" })</p>
+
+                }
+                else
+                {
+                    if (item.Block == false)
+                    {
+                        <p>@Html.ActionLink("Zablokuj", "Block", new { id = item.UserId }, new { @style = "color:red" })</p>
+                    }
+                    else
+                    {
+                        <p>@Html.ActionLink("Odblokuj", "UnBlock", new { id = item.UserId }, new { @style = "color:green" })</p>
+                    }
+                }
+            </div>
+        }
+    </div>
+</div>

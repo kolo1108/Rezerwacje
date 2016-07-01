@@ -1,0 +1,55 @@
+﻿@model Bookings.Models.Booking
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Usuń</h2>
+
+<h3>Czy napewno chcesz usunąć rezerwację?</h3>
+<div>
+    <br />
+    <dl class="form-horizontal" style="font-size:large">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Data rozpoczęcia")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOf)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Data zakończenia")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateTo)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-ok" />
+        </div>
+    }
+</div>
